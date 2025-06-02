@@ -30,7 +30,7 @@ export default function HomePage() {
                 style={{ backgroundColor: "#0E2148" }}
               ></div>
               <h1 className="text-3xl font-black tracking-tight" style={{ color: "#0E2148" }}>
-                Finance<span style={{ color: "#483AA0" }}>AI</span>
+                Centsense<span style={{ color: "#483AA0" }}>AI</span>
               </h1>
             </div>
             <div className="hidden md:flex items-center space-x-8">
