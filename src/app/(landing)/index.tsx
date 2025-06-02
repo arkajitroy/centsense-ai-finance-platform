@@ -15,7 +15,11 @@ import {
   Smartphone,
   Globe,
   Lock,
+  PenBox,
+  LayoutDashboard,
 } from "lucide-react";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -34,7 +38,7 @@ export default function HomePage() {
               </h1>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a
+              {/* <a
                 href="#features"
                 className="text-gray-700 hover:text-[#0E2148] transition-colors font-medium"
               >
@@ -57,13 +61,39 @@ export default function HomePage() {
                 className="text-gray-700 hover:text-[#0E2148] transition-colors font-medium"
               >
                 Testimonials
-              </a>
-              <Button
-                variant="outline"
-                className="border-[#0E2148] text-[#0E2148] hover:bg-[#0E2148] hover:text-white font-semibold"
-              >
-                Sign In
-              </Button>
+              </a> */}
+
+              <SignedIn>
+                <Link
+                  href="/dashboard"
+                  className="text-gray-600 hover:text-blue-600 flex items-center gap-2"
+                >
+                  <Button variant="outline">
+                    <LayoutDashboard size={18} />
+                    <span className="hidden md:inline">Dashboard</span>
+                  </Button>
+                </Link>
+                <a href="/transaction/create">
+                  <Button className="flex items-center gap-2">
+                    <PenBox size={18} />
+                    <span className="hidden md:inline">Add Transaction</span>
+                  </Button>
+                </a>
+              </SignedIn>
+
+              <SignedOut>
+                <Link href={"/sign-in"}>
+                  <Button
+                    variant="outline"
+                    className="border-[#0E2148] text-[#0E2148] hover:bg-[#0E2148] hover:text-white font-semibold"
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </div>
           </div>
         </div>
