@@ -1,12 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { dummyAccounts, dummyBudgetData, dummyTransactions } from "@/data/dashboard";
+import { dummyBudgetData, dummyTransactions } from "@/data/dashboard";
 import { CreateAccountDrawer } from "@/features/account/components/create-account-drawer";
 import { AccountCard } from "@/features/dashboard/components/account-card";
+import { getUserAccounts } from "@/features/dashboard/server/action";
 import { Plus } from "lucide-react";
 import React from "react";
 
-export default function DashboardPage() {
-  const accounts = dummyAccounts;
+export default async function DashboardPage() {
+  const accounts = await getUserAccounts();
   const transactions = dummyTransactions;
   const budgetData = dummyBudgetData;
 
@@ -20,6 +21,8 @@ export default function DashboardPage() {
   const monthlyExpenses = transactions.filter((t) => t.type === "EXPENSE").reduce((sum, t) => sum + t.amount, 0);
 
   const netIncome = monthlyIncome - monthlyExpenses;
+
+  console.log("debug:accounts", accounts);
 
   return (
     <div>

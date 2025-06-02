@@ -1,9 +1,9 @@
 "use client";
 
+import { MouseEvent, useEffect } from "react";
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { useEffect } from "react";
 import useFetch from "@/hooks/use-fetch";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -21,6 +21,13 @@ type AccountCardProps = {
 export function AccountCard({ account }: AccountCardProps) {
   const { id, name, balance, isDefault, type } = account;
 
+  // const {
+  //   loading: updateDefaultLoading,
+  //   fn: updateDefaultFn,
+  //   data: updatedAccount,
+  //   error,
+  // } = useFetch(updateDefaultAccount);
+
   const getAccountIcon = (type: string) => {
     switch (type) {
       case "CHECKING":
@@ -34,6 +41,29 @@ export function AccountCard({ account }: AccountCardProps) {
     }
   };
 
+  const handleDefaultChange = async (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault(); // Prevent navigation
+
+    if (isDefault) {
+      toast.warning("You need atleast 1 default account");
+      return; // Don't allow toggling off the default account
+    }
+
+    await updateDefaultFn(id);
+  };
+
+  // useEffect(() => {
+  //   if (updatedAccount?.success) {
+  //     toast.success("Default account updated successfully");
+  //   }
+  // }, [updatedAccount]);
+
+  // useEffect(() => {
+  //   if (error) {
+  //     toast.error(error.message || "Failed to update default account");
+  //   }
+  // }, [error]);
+
   return (
     <Card className="hover:shadow-lg transition-all duration-200 group relative overflow-hidden">
       <Link href={`/account/${id}`}>
@@ -43,16 +73,12 @@ export function AccountCard({ account }: AccountCardProps) {
             <span className="text-lg">{getAccountIcon(type)}</span>
             <CardTitle className="text-sm font-medium capitalize">{name}</CardTitle>
             {isDefault && (
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="default" className="text-xs">
                 Default
               </Badge>
             )}
           </div>
-          {/* <Switch
-            checked={isDefault}
-            onClick={handleDefaultChange}
-            disabled={updateDefaultLoading}
-          /> */}
+          <Switch checked={isDefault} onClick={handleDefaultChange} />
         </CardHeader>
         <CardContent className="relative">
           <div className="text-3xl font-bold mb-1">${Number.parseFloat(String(balance)).toLocaleString()}</div>

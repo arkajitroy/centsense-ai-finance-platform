@@ -9,7 +9,7 @@ import db from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 type SerializedAccount = Omit<Account, "balance"> & { balance: number };
-// type SerializedTransaction = Omit<Transaction, "amount"> & { amount: number };
+type SerializedTransaction = Omit<Transaction, "amount"> & { amount: number };
 
 // You can add more strict input types for account creation
 interface CreateAccountInput {
@@ -82,6 +82,58 @@ export const createAccount = async (
     throw new Error((error as Error).message);
   }
 };
+
+export async function getUserAccounts(): Promise<SerializedAccount[]> {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+
+  const user = await db.user.findUnique({
+    where: { clerkUserId: userId },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  try {
+    const accounts = await db.account.findMany({
+      where: { userId: user.id },
+      orderBy: { createdAt: "desc" },
+      include: {
+        _count: {
+          select: {
+            transactions: true,
+          },
+        },
+      },
+    });
+
+    return accounts.map(serializeTransaction);
+  } catch (error) {
+    console.error((error as Error).message);
+    throw new Error("Failed to fetch user accounts");
+  }
+}
+
+export async function getDashboardData(): Promise<SerializedTransaction[]> {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+
+  const user = await db.user.findUnique({
+    where: { clerkUserId: userId },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const transactions = await db.transaction.findMany({
+    where: { userId: user.id },
+    orderBy: { date: "desc" },
+  });
+
+  return transactions.map(serializeTransaction);
+}
 
 function serializeTransaction(obj: any): any {
   const serialized = { ...obj };

@@ -66,8 +66,6 @@ export function CreateAccountDrawer({ children }: PropsWithChildren) {
     }
   }, [error]);
 
-  console.log("debug:getValues", watch());
-
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
