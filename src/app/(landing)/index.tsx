@@ -26,69 +26,37 @@ export default async function HomePage() {
   await checkUser();
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#ECFAE5" }}>
+    <div className="min-h-screen bg-background">
       {/* Navbar */}
-      <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <nav className="border-b border-sidebar-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <div
-                className="w-10 h-10 rounded-lg mr-3"
-                style={{ backgroundColor: "#0E2148" }}
-              ></div>
-              <h1 className="text-3xl font-black tracking-tight" style={{ color: "#0E2148" }}>
-                Centsense<span style={{ color: "#483AA0" }}>AI</span>
+              <div className="w-8 h-8 rounded-md mr-2 bg-primary"></div>
+              <h1 className="text-2xl font-bold tracking-tight text-primary">
+                Centsense<span className="text-sidebar-accent">AI</span>
               </h1>
             </div>
-            <div className="hidden md:flex items-center space-x-8">
-              {/* <a
-                href="#features"
-                className="text-gray-700 hover:text-[#0E2148] transition-colors font-medium"
-              >
-                Features
-              </a>
-              <a
-                href="#how-it-works"
-                className="text-gray-700 hover:text-[#0E2148] transition-colors font-medium"
-              >
-                How it Works
-              </a>
-              <a
-                href="#pricing"
-                className="text-gray-700 hover:text-[#0E2148] transition-colors font-medium"
-              >
-                Pricing
-              </a>
-              <a
-                href="#testimonials"
-                className="text-gray-700 hover:text-[#0E2148] transition-colors font-medium"
-              >
-                Testimonials
-              </a> */}
-
+            <div className="hidden md:flex items-center space-x-6">
               <SignedIn>
-                <Link
-                  href="/dashboard"
-                  className="text-gray-600 hover:text-blue-600 flex items-center gap-2"
-                >
-                  <Button variant="outline">
-                    <LayoutDashboard size={18} />
+                <Link href="/dashboard">
+                  <Button variant="outline" className="flex items-center gap-2 text-sm">
+                    <LayoutDashboard className="h-4 w-4" />
                     <span className="hidden md:inline">Dashboard</span>
                   </Button>
                 </Link>
-                <a href="/transaction/create">
-                  <Button className="flex items-center gap-2">
-                    <PenBox size={18} />
+                <Link href="/transaction/create">
+                  <Button className="flex items-center gap-2 text-sm bg-primary text-primary-foreground">
+                    <PenBox className="h-4 w-4" />
                     <span className="hidden md:inline">Add Transaction</span>
                   </Button>
-                </a>
+                </Link>
               </SignedIn>
-
               <SignedOut>
-                <Link href={"/sign-in"}>
+                <Link href="/sign-in">
                   <Button
                     variant="outline"
-                    className="border-[#0E2148] text-[#0E2148] hover:bg-[#0E2148] hover:text-white font-semibold"
+                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground text-sm font-medium"
                   >
                     Sign In
                   </Button>
@@ -103,61 +71,55 @@ export default async function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="py-32 lg:py-40 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent"></div>
+      <section className="py-20 sm:py-24 lg:py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-card/50 to-transparent"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
-            <Badge
-              className="mb-8 text-sm font-semibold px-4 py-2"
-              style={{ backgroundColor: "#7965C1", color: "white" }}
-            >
+            <Badge className="mb-6 text-xs font-medium px-3 py-1 bg-accent text-accent-foreground">
               🚀 Now with Advanced AI Analytics
             </Badge>
-            <h1 className="text-6xl lg:text-8xl font-black tracking-tight mb-8 leading-none">
-              <span style={{ color: "#0E2148" }}>The Future of</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
+              <span className="text-primary">The Future of</span>
               <br />
-              <span className="bg-gradient-to-r from-[#483AA0] to-[#7965C1] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-sidebar-accent to-accent bg-clip-text text-transparent">
                 Financial Intelligence
               </span>
             </h1>
-            <p className="text-2xl lg:text-3xl text-gray-700 mb-6 max-w-4xl mx-auto leading-relaxed font-light">
+            <p className="text-lg sm:text-xl text-muted-foreground mb-4 max-w-3xl mx-auto leading-relaxed">
               Transform your financial decisions with
-              <span className="font-semibold text-[#0E2148]"> AI-powered insights</span>, automated
-              tracking, and personalized recommendations that adapt to your lifestyle.
+              <span className="font-medium text-primary"> AI-powered insights</span>, automated
+              tracking, and personalized recommendations.
             </p>
-            <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-              Join 150,000+ users who&apos;ve increased their savings by an average of 40% in the
-              first year.
+            <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-xl mx-auto">
+              Join 150,000+ users who&apos;ve increased their savings by 40% in the first year.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <Button
                 size="lg"
-                className="text-xl px-12 py-6 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                style={{ backgroundColor: "#0E2148" }}
+                className="px-8 py-5 font-medium text-base bg-primary text-primary-foreground rounded-lg"
               >
                 Start Your Financial Journey
-                <ArrowRight className="ml-3 h-6 w-6" />
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                className="text-xl px-12 py-6 font-semibold rounded-xl border-2"
-                style={{ borderColor: "#483AA0", color: "#483AA0" }}
+                className="px-8 py-5 font-medium text-base border-accent text-accent rounded-lg hover:bg-accent hover:text-accent-foreground"
               >
                 Watch Demo
               </Button>
             </div>
-            <div className="mt-16 flex justify-center items-center space-x-8 text-sm text-gray-600">
+            <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 text-xs text-muted-foreground">
               <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
                 <span className="font-medium">Free 30-day trial</span>
               </div>
               <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
                 <span className="font-medium">No credit card required</span>
               </div>
               <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
                 <span className="font-medium">Cancel anytime</span>
               </div>
             </div>
@@ -166,625 +128,450 @@ export default async function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-accent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-black mb-4" style={{ color: "#0E2148" }}>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-primary">
               Trusted by Financial Leaders
             </h2>
-            <p className="text-xl text-gray-600 font-light">
+            <p className="text-base sm:text-lg text-primary-muted">
               Real results from real users worldwide
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-6xl font-black mb-2" style={{ color: "#483AA0" }}>
-                $2.4B+
+              <div className="text-4xl sm:text-5xl font-bold mb-2 text-white">$2.4B+</div>
+              <div className="text-sm sm:text-base text-primary font-medium">
+                Assets Under Management
               </div>
-              <div className="text-lg text-gray-600 font-medium">Assets Under Management</div>
-              <div className="text-sm text-gray-500 mt-1">Across 50+ countries</div>
+              <div className="text-xs text-primary mt-1">Across 50+ countries</div>
             </div>
             <div className="text-center">
-              <div className="text-6xl font-black mb-2" style={{ color: "#483AA0" }}>
-                150K+
-              </div>
-              <div className="text-lg text-gray-600 font-medium">Active Users</div>
-              <div className="text-sm text-gray-500 mt-1">Growing daily</div>
+              <div className="text-4xl sm:text-5xl font-bold mb-2 text-white">150K+</div>
+              <div className="text-sm sm:text-base text-primary font-medium">Active Users</div>
+              <div className="text-xs text-primary mt-1">Growing daily</div>
             </div>
             <div className="text-center">
-              <div className="text-6xl font-black mb-2" style={{ color: "#483AA0" }}>
-                98.7%
-              </div>
-              <div className="text-lg text-gray-600 font-medium">Accuracy Rate</div>
-              <div className="text-sm text-gray-500 mt-1">AI predictions</div>
+              <div className="text-4xl sm:text-5xl font-bold mb-2 text-white">98.7%</div>
+              <div className="text-sm sm:text-base text-primary font-medium">Accuracy Rate</div>
+              <div className="text-xs text-primary mt-1">AI predictions</div>
             </div>
             <div className="text-center">
-              <div className="text-6xl font-black mb-2" style={{ color: "#483AA0" }}>
-                40%
+              <div className="text-4xl sm:text-5xl font-bold mb-2 text-white">40%</div>
+              <div className="text-sm sm:text-base text-primary font-medium">
+                Average Savings Increase
               </div>
-              <div className="text-lg text-gray-600 font-medium">Average Savings Increase</div>
-              <div className="text-sm text-gray-500 mt-1">First year results</div>
+              <div className="text-xs text-primary mt-1">First year results</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-32" style={{ backgroundColor: "#ECFAE5" }}>
+      <section id="features" className="py-20 sm:py-24 bg-secondary2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <Badge
-              className="mb-6 text-sm font-semibold px-4 py-2"
-              style={{ backgroundColor: "#7965C1", color: "white" }}
-            >
+          <div className="text-center mb-12">
+            <Badge className="mb-4 text-xs font-medium px-3 py-1 bg-accent text-accent-foreground">
               POWERFUL FEATURES
             </Badge>
-            <h2 className="text-6xl lg:text-7xl font-black mb-8" style={{ color: "#0E2148" }}>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-primary">
               Intelligence That
               <br />
-              <span className="bg-gradient-to-r from-[#483AA0] to-[#7965C1] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-sidebar-accent to-accent bg-clip-text text-transparent">
                 Adapts to You
               </span>
             </h2>
-            <p className="text-2xl text-gray-700 max-w-3xl mx-auto font-light leading-relaxed">
-              Our AI doesn&apos;t just track your money—it learns your habits, predicts your needs,
-              and optimizes your financial future automatically.
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Our AI learns your habits, predicts your needs, and optimizes your financial future.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            <Card className="border-0 shadow-xl bg-white hover:shadow-2xl transition-all duration-300 group">
-              <CardContent className="p-8">
-                <div
-                  className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: "#0E2148" }}
-                >
-                  <Brain className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: "#0E2148" }}>
-                  Predictive Analytics
-                </h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  AI algorithms analyze spending patterns to predict future expenses and suggest
-                  optimal budget allocations.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-xl bg-white hover:shadow-2xl transition-all duration-300 group">
-              <CardContent className="p-8">
-                <div
-                  className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: "#483AA0" }}
-                >
-                  <TrendingUp className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: "#0E2148" }}>
-                  Smart Investments
-                </h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Automated portfolio rebalancing and investment recommendations based on your risk
-                  profile and goals.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-xl bg-white hover:shadow-2xl transition-all duration-300 group">
-              <CardContent className="p-8">
-                <div
-                  className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: "#7965C1" }}
-                >
-                  <Shield className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: "#0E2148" }}>
-                  Military-Grade Security
-                </h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Bank-level encryption with biometric authentication and real-time fraud detection.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-xl bg-white hover:shadow-2xl transition-all duration-300 group">
-              <CardContent className="p-8">
-                <div
-                  className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: "#0E2148" }}
-                >
-                  <Target className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: "#0E2148" }}>
-                  Goal Optimization
-                </h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Set financial goals and let AI create personalized strategies to achieve them
-                  faster.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-xl bg-white hover:shadow-2xl transition-all duration-300 group">
-              <CardContent className="p-8">
-                <div
-                  className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: "#483AA0" }}
-                >
-                  <Smartphone className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: "#0E2148" }}>
-                  Mobile-First Design
-                </h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Seamless experience across all devices with offline capabilities and instant sync.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-xl bg-white hover:shadow-2xl transition-all duration-300 group">
-              <CardContent className="p-8">
-                <div
-                  className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: "#7965C1" }}
-                >
-                  <Globe className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4" style={{ color: "#0E2148" }}>
-                  Global Integration
-                </h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Connect with 10,000+ banks worldwide and manage multiple currencies effortlessly.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Brain,
+                title: "Predictive Analytics",
+                bg: "bg-primary",
+                description:
+                  "AI analyzes spending patterns to predict expenses and suggest budget allocations.",
+              },
+              {
+                icon: TrendingUp,
+                title: "Smart Investments",
+                bg: "bg-sidebar-accent",
+                description: "Automated portfolio rebalancing and investment recommendations.",
+              },
+              {
+                icon: Shield,
+                title: "Military-Grade Security",
+                bg: "bg-accent",
+                description:
+                  "Bank-level encryption with biometric authentication and fraud detection.",
+              },
+              {
+                icon: Target,
+                title: "Goal Optimization",
+                bg: "bg-primary",
+                description: "Set goals and let AI create personalized strategies to achieve them.",
+              },
+              {
+                icon: Smartphone,
+                title: "Mobile-First Design",
+                bg: "bg-sidebar-accent",
+                description: "Seamless experience across devices with offline capabilities.",
+              },
+              {
+                icon: Globe,
+                title: "Global Integration",
+                bg: "bg-accent",
+                description: "Connect with 10,000+ banks and manage multiple currencies.",
+              },
+            ].map((feature, index) => (
+              <Card
+                key={index}
+                className="border-0 shadow-lg bg-card hover:shadow-xl transition-all duration-300 group"
+              >
+                <CardContent className="p-6">
+                  <div
+                    className={`w-12 h-12 rounded-lg mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ${feature.bg}`}
+                  >
+                    <feature.icon className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-primary">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* How it Works */}
-      <section id="how-it-works" className="py-32 bg-white">
+      <section id="how-it-works" className="py-20 sm:py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <Badge
-              className="mb-6 text-sm font-semibold px-4 py-2"
-              style={{ backgroundColor: "#0E2148", color: "white" }}
-            >
+          <div className="text-center mb-12">
+            <Badge className="mb-4 text-xs font-medium px-3 py-1 bg-primary text-primary-foreground">
               SIMPLE PROCESS
             </Badge>
-            <h2 className="text-6xl lg:text-7xl font-black mb-8" style={{ color: "#0E2148" }}>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-primary">
               Get Started in
               <br />
-              <span className="bg-gradient-to-r from-[#483AA0] to-[#7965C1] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-sidebar-accent to-accent bg-clip-text text-transparent">
                 Three Steps
               </span>
             </h2>
-            <p className="text-2xl text-gray-700 max-w-3xl mx-auto font-light">
-              From setup to optimization, we&apos;ve made financial management as simple as
-              possible.
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              From setup to optimization, financial management made simple.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            <div className="text-center group">
-              <div className="relative mb-8">
-                <div
-                  className="w-24 h-24 rounded-full flex items-center justify-center text-4xl font-black mx-auto mb-6 shadow-2xl group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: "#0E2148", color: "white" }}
-                >
-                  1
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                number: 1,
+                title: "Connect & Verify",
+                bg: "bg-primary",
+                dotBg: "bg-accent",
+                description: "Link accounts securely with bank-grade encryption.",
+                badges: ["2-Factor Auth", "256-bit SSL"],
+              },
+              {
+                number: 2,
+                title: "AI Learning Phase",
+                bg: "bg-sidebar-accent",
+                dotBg: "bg-accent",
+                description: "AI analyzes spending and creates your unique profile.",
+                badges: ["Machine Learning", "Pattern Recognition"],
+              },
+              {
+                number: 3,
+                title: "Optimize & Grow",
+                bg: "bg-accent",
+                dotBg: "bg-primary",
+                description: "Personalized recommendations and automated savings.",
+                badges: ["Auto-Optimization", "Real-time Alerts"],
+              },
+            ].map((step, index) => (
+              <div key={index} className="text-center group">
+                <div className="relative mb-6">
+                  <div
+                    className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300 ${step.bg} text-primary-foreground`}
+                  >
+                    {step.number}
+                  </div>
+                  <div
+                    className={`absolute -top-1 -right-1 w-6 h-6 rounded-full ${step.dotBg}`}
+                  ></div>
                 </div>
-                <div
-                  className="absolute -top-2 -right-2 w-8 h-8 rounded-full"
-                  style={{ backgroundColor: "#7965C1" }}
-                ></div>
-              </div>
-              <h3 className="text-3xl font-bold mb-6" style={{ color: "#0E2148" }}>
-                Connect & Verify
-              </h3>
-              <p className="text-gray-600 text-xl leading-relaxed mb-4">
-                Securely link your financial accounts using bank-grade encryption. Our AI instantly
-                categorizes your transactions.
-              </p>
-              <div className="flex justify-center space-x-2">
-                <Badge variant="outline" className="text-xs">
-                  2-Factor Auth
-                </Badge>
-                <Badge variant="outline" className="text-xs">
-                  256-bit SSL
-                </Badge>
-              </div>
-            </div>
-
-            <div className="text-center group">
-              <div className="relative mb-8">
-                <div
-                  className="w-24 h-24 rounded-full flex items-center justify-center text-4xl font-black mx-auto mb-6 shadow-2xl group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: "#483AA0", color: "white" }}
-                >
-                  2
+                <h3 className="text-xl font-bold mb-4 text-primary">{step.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                  {step.description}
+                </p>
+                <div className="flex justify-center gap-2">
+                  {step.badges.map((badge, i) => (
+                    <Badge key={i} variant="outline" className="text-xs">
+                      {badge}
+                    </Badge>
+                  ))}
                 </div>
-                <div
-                  className="absolute -top-2 -right-2 w-8 h-8 rounded-full"
-                  style={{ backgroundColor: "#7965C1" }}
-                ></div>
               </div>
-              <h3 className="text-3xl font-bold mb-6" style={{ color: "#0E2148" }}>
-                AI Learning Phase
-              </h3>
-              <p className="text-gray-600 text-xl leading-relaxed mb-4">
-                Our AI analyzes your spending patterns, income cycles, and financial behavior to
-                create your unique profile.
-              </p>
-              <div className="flex justify-center space-x-2">
-                <Badge variant="outline" className="text-xs">
-                  Machine Learning
-                </Badge>
-                <Badge variant="outline" className="text-xs">
-                  Pattern Recognition
-                </Badge>
-              </div>
-            </div>
-
-            <div className="text-center group">
-              <div className="relative mb-8">
-                <div
-                  className="w-24 h-24 rounded-full flex items-center justify-center text-4xl font-black mx-auto mb-6 shadow-2xl group-hover:scale-110 transition-transform duration-300"
-                  style={{ backgroundColor: "#7965C1", color: "white" }}
-                >
-                  3
-                </div>
-                <div
-                  className="absolute -top-2 -right-2 w-8 h-8 rounded-full"
-                  style={{ backgroundColor: "#0E2148" }}
-                ></div>
-              </div>
-              <h3 className="text-3xl font-bold mb-6" style={{ color: "#0E2148" }}>
-                Optimize & Grow
-              </h3>
-              <p className="text-gray-600 text-xl leading-relaxed mb-4">
-                Receive personalized recommendations, automated savings, and real-time insights to
-                maximize your wealth.
-              </p>
-              <div className="flex justify-center space-x-2">
-                <Badge variant="outline" className="text-xs">
-                  Auto-Optimization
-                </Badge>
-                <Badge variant="outline" className="text-xs">
-                  Real-time Alerts
-                </Badge>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-32" style={{ backgroundColor: "#ECFAE5" }}>
+      <section id="pricing" className="py-20 sm:py-24 bg-secondary2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <Badge
-              className="mb-6 text-sm font-semibold px-4 py-2"
-              style={{ backgroundColor: "#483AA0", color: "white" }}
-            >
+          <div className="text-center mb-12">
+            <Badge className="mb-4 text-xs font-medium px-3 py-1 bg-sidebar-accent text-white">
               TRANSPARENT PRICING
             </Badge>
-            <h2 className="text-6xl lg:text-7xl font-black mb-8" style={{ color: "#0E2148" }}>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-primary">
               Choose Your
               <br />
-              <span className="bg-gradient-to-r from-[#483AA0] to-[#7965C1] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-sidebar-accent to-accent bg-clip-text text-transparent">
                 Financial Future
               </span>
             </h2>
-            <p className="text-2xl text-gray-700 max-w-3xl mx-auto font-light">
-              Start free, upgrade when you&apos;re ready. No hidden fees, no surprises.
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Start free, upgrade when ready. No hidden fees.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="border-2 border-gray-200 bg-white">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-2" style={{ color: "#0E2148" }}>
-                  Starter
-                </h3>
-                <p className="text-gray-600 mb-6">Perfect for individuals getting started</p>
-                <div className="mb-6">
-                  <span className="text-5xl font-black" style={{ color: "#0E2148" }}>
-                    $0
-                  </span>
-                  <span className="text-gray-600 ml-2">forever</span>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Connect up to 3 accounts</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Basic expense tracking</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Monthly reports</span>
-                  </li>
-                </ul>
-                <Button
-                  className="w-full"
-                  variant="outline"
-                  style={{ borderColor: "#0E2148", color: "#0E2148" }}
-                >
-                  Get Started Free
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card
-              className="border-2 bg-white relative overflow-hidden"
-              style={{ borderColor: "#483AA0" }}
-            >
-              <div
-                className="absolute top-0 left-0 right-0 h-1"
-                style={{ backgroundColor: "#483AA0" }}
-              ></div>
-              <CardContent className="p-8">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-2xl font-bold" style={{ color: "#0E2148" }}>
-                    Professional
-                  </h3>
-                  <Badge style={{ backgroundColor: "#483AA0", color: "white" }}>Most Popular</Badge>
-                </div>
-                <p className="text-gray-600 mb-6">For serious financial optimization</p>
-                <div className="mb-6">
-                  <span className="text-5xl font-black" style={{ color: "#483AA0" }}>
-                    $19
-                  </span>
-                  <span className="text-gray-600 ml-2">/month</span>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Unlimited account connections</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>AI-powered insights</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Investment recommendations</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Goal tracking & optimization</span>
-                  </li>
-                </ul>
-                <Button className="w-full text-white" style={{ backgroundColor: "#483AA0" }}>
-                  Start 30-Day Trial
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-gray-200 bg-white">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-2" style={{ color: "#0E2148" }}>
-                  Enterprise
-                </h3>
-                <p className="text-gray-600 mb-6">For businesses and wealth management</p>
-                <div className="mb-6">
-                  <span className="text-5xl font-black" style={{ color: "#0E2148" }}>
-                    $99
-                  </span>
-                  <span className="text-gray-600 ml-2">/month</span>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Everything in Professional</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Multi-user access</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Advanced analytics</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                    <span>Dedicated support</span>
-                  </li>
-                </ul>
-                <Button
-                  className="w-full"
-                  variant="outline"
-                  style={{ borderColor: "#0E2148", color: "#0E2148" }}
-                >
-                  Contact Sales
-                </Button>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Starter",
+                price: "$0",
+                subtext: "forever",
+                description: "Perfect for individuals getting started",
+                features: ["Connect up to 3 accounts", "Basic expense tracking", "Monthly reports"],
+                button: {
+                  text: "Get Started Free",
+                  variant: "outline",
+                  style: "border-primary text-white",
+                },
+              },
+              {
+                title: "Professional",
+                price: "$19",
+                subtext: "/month",
+                description: "For serious financial optimization",
+                features: [
+                  "Unlimited account connections",
+                  "AI-powered insights",
+                  "Investment recommendations",
+                  "Goal tracking & optimization",
+                ],
+                button: {
+                  text: "Start 30-Day Trial",
+                  variant: "default",
+                  style: "bg-sidebar-accent text-white",
+                },
+                highlight: true,
+              },
+              {
+                title: "Enterprise",
+                price: "$99",
+                subtext: "/month",
+                description: "For businesses and wealth management",
+                features: [
+                  "Everything in Professional",
+                  "Multi-user access",
+                  "Advanced analytics",
+                  "Dedicated support",
+                ],
+                button: {
+                  text: "Contact Sales",
+                  variant: "outline",
+                  style: "border-primary text-white",
+                },
+              },
+            ].map((plan, index) => (
+              <Card
+                key={index}
+                className={`border-2 ${
+                  plan.highlight
+                    ? "border-sidebar-accent relative overflow-hidden"
+                    : "border-border bg-card"
+                }`}
+              >
+                {plan.highlight && (
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-sidebar-accent"></div>
+                )}
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xl font-bold text-primary">{plan.title}</h3>
+                    {plan.highlight && (
+                      <Badge className="bg-sidebar-accent text-white">Most Popular</Badge>
+                    )}
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
+                  <div className="mb-4">
+                    <span
+                      className="text-4xl font-bold"
+                      style={{ color: plan.highlight ? "var(--sidebar-accent)" : "var(--primary)" }}
+                    >
+                      {plan.price}
+                    </span>
+                    <span className="text-sm text-muted-foreground ml-2">{plan.subtext}</span>
+                  </div>
+                  <ul className="space-y-2 mb-6">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-center">
+                        <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button className={`w-full text-sm ${plan.button.style}`} variant={"default"}>
+                    {plan.button.text}
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-32 bg-white">
+      <section id="testimonials" className="py-20 sm:py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <Badge
-              className="mb-6 text-sm font-semibold px-4 py-2"
-              style={{ backgroundColor: "#7965C1", color: "white" }}
-            >
+          <div className="text-center mb-12">
+            <Badge className="mb-4 text-xs font-medium px-3 py-1 bg-accent text-accent-foreground">
               SUCCESS STORIES
             </Badge>
-            <h2 className="text-6xl lg:text-7xl font-black mb-8" style={{ color: "#0E2148" }}>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-primary">
               Real Results from
               <br />
-              <span className="bg-gradient-to-r from-[#483AA0] to-[#7965C1] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-sidebar-accent to-accent bg-clip-text text-transparent">
                 Real People
               </span>
             </h2>
-            <p className="text-2xl text-gray-700 max-w-3xl mx-auto font-light">
-              Join thousands who have transformed their financial lives with FinanceAI.
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Join thousands who transformed their financial lives.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-xl bg-white">
-              <CardContent className="p-8">
-                <div className="flex mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-6 w-6 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-8 text-lg leading-relaxed font-medium">
-                  FinanceAI helped me save $25,000 in my first year. The AI insights are incredibly
-                  accurate and the automated savings feature is a game-changer.
-                </p>
-                <div className="flex items-center">
-                  <div
-                    className="w-12 h-12 rounded-full mr-4"
-                    style={{ backgroundColor: "#7965C1" }}
-                  ></div>
-                  <div>
-                    <div className="font-bold text-lg" style={{ color: "#0E2148" }}>
-                      Sarah Johnson
-                    </div>
-                    <div className="text-gray-600">Marketing Director, Tech Startup</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Sarah Johnson",
+                role: "Marketing Director, Tech Startup",
+                quote:
+                  "FinanceAI helped me save $25,000 in my first year. The AI insights are incredibly accurate.",
+                bg: "bg-accent",
+              },
+              {
+                name: "Michael Chen",
+                role: "Software Engineer, Fortune 500",
+                quote: "The investment recommendations increased my portfolio returns by 35%.",
+                bg: "bg-sidebar-accent",
+              },
+              {
+                name: "Emily Rodriguez",
+                role: "Small Business Owner",
+                quote:
+                  "Simple, powerful, and intuitive. My business finances have never been more organized.",
+                bg: "bg-primary",
+              },
+            ].map((testimonial, index) => (
+              <Card key={index} className="border-0 shadow-lg bg-card">
+                <CardContent className="p-6">
+                  <div className="flex mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                    ))}
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-xl bg-white">
-              <CardContent className="p-8">
-                <div className="flex mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-6 w-6 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-8 text-lg leading-relaxed font-medium">
-                  The investment recommendations increased my portfolio returns by 35%. I wish I had
-                  found this app sooner!
-                </p>
-                <div className="flex items-center">
-                  <div
-                    className="w-12 h-12 rounded-full mr-4"
-                    style={{ backgroundColor: "#483AA0" }}
-                  ></div>
-                  <div>
-                    <div className="font-bold text-lg" style={{ color: "#0E2148" }}>
-                      Michael Chen
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed font-medium">
+                    {testimonial.quote}
+                  </p>
+                  <div className="flex items-center">
+                    <div className={`w-10 h-10 rounded-full mr-3 ${testimonial.bg}`}></div>
+                    <div>
+                      <div className="font-bold text-base text-primary">{testimonial.name}</div>
+                      <div className="text-xs text-muted-foreground">{testimonial.role}</div>
                     </div>
-                    <div className="text-gray-600">Software Engineer, Fortune 500</div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-xl bg-white">
-              <CardContent className="p-8">
-                <div className="flex mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-6 w-6 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-8 text-lg leading-relaxed font-medium">
-                  Simple, powerful, and intuitive. FinanceAI makes managing money feel effortless.
-                  My business finances have never been more organized.
-                </p>
-                <div className="flex items-center">
-                  <div
-                    className="w-12 h-12 rounded-full mr-4"
-                    style={{ backgroundColor: "#0E2148" }}
-                  ></div>
-                  <div>
-                    <div className="font-bold text-lg" style={{ color: "#0E2148" }}>
-                      Emily Rodriguez
-                    </div>
-                    <div className="text-gray-600">Small Business Owner</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24" style={{ backgroundColor: "#ECFAE5" }}>
+      <section className="py-16 bg-secondary2">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl lg:text-5xl font-black mb-6" style={{ color: "#0E2148" }}>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-primary">
             Stay Ahead of the Curve
           </h2>
-          <p className="text-xl text-gray-700 mb-8 font-light">
-            Get weekly insights, market updates, and exclusive tips delivered to your inbox.
+          <p className="text-base sm:text-lg text-muted-foreground mb-6">
+            Weekly insights, market updates, and exclusive tips to your inbox.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input
               placeholder="Enter your email"
-              className="flex-1 h-14 text-lg border-2"
-              style={{ borderColor: "#483AA0" }}
+              className="flex-1 h-12 text-base border-2 border-sidebar-accent"
             />
             <Button
               size="lg"
-              className="h-14 px-8 font-semibold text-lg"
-              style={{ backgroundColor: "#483AA0" }}
+              className="h-12 px-6 font-medium text-base bg-sidebar-accent text-white"
             >
               Subscribe
             </Button>
           </div>
-          <p className="text-sm text-gray-600 mt-4">
+          <p className="text-xs text-muted-foreground mt-3">
             Join 50,000+ subscribers. Unsubscribe anytime.
           </p>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 relative overflow-hidden" style={{ backgroundColor: "#0E2148" }}>
-        <div className="absolute inset-0 bg-gradient-to-br from-[#483AA0]/20 to-transparent"></div>
+      <section className="py-20 sm:py-24 relative overflow-hidden bg-primary">
+        <div className="absolute inset-0 bg-gradient-to-br from-sidebar-accent/20 to-transparent"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <Badge
-            className="mb-8 text-sm font-semibold px-4 py-2"
-            style={{ backgroundColor: "#7965C1", color: "white" }}
-          >
+          <Badge className="mb-6 text-xs font-medium px-3 py-1 bg-accent text-accent-foreground">
             LIMITED TIME OFFER
           </Badge>
-          <h2 className="text-6xl lg:text-7xl font-black text-white mb-8 leading-tight">
+          <h2 className="text-4xl sm:text-5xl font-bold text-primary-foreground mb-6 leading-tight">
             Ready to Transform
             <br />
             Your Financial Future?
           </h2>
-          <p className="text-2xl text-gray-300 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
-            Join 150,000+ users who have already taken control of their financial destiny. Start
-            your journey today with our 30-day free trial.
+          <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+            Join 150,000+ users with our 30-day free trial.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               size="lg"
-              className="bg-white text-[#0E2148] hover:bg-gray-100 text-xl px-12 py-6 font-bold rounded-xl shadow-2xl"
+              className="px-8 py-5 bg-card text-primary text-base font-medium rounded-lg"
             >
               Start Your Free Trial
-              <ArrowRight className="ml-3 h-6 w-6" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="border-2 border-white text-[#0E2148] hover:bg-white hover:text-[#0E2148] text-xl px-12 py-6 font-semibold rounded-xl"
+              className="px-8 py-5 border-2 border-primary-foreground text-primary text-base font-medium rounded-lg hover:bg-card hover:text-primary"
             >
               Schedule a Demo
             </Button>
           </div>
-          <div className="mt-12 flex justify-center items-center space-x-8 text-gray-300">
+          <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 text-xs text-muted-foreground">
             <div className="flex items-center">
-              <Award className="h-6 w-6 mr-2" />
+              <Award className="h-5 w-5 mr-1" />
               <span className="font-medium">Award-winning AI</span>
             </div>
             <div className="flex items-center">
-              <Users className="h-6 w-6 mr-2" />
+              <Users className="h-5 w-5 mr-1" />
               <span className="font-medium">150K+ happy users</span>
             </div>
             <div className="flex items-center">
-              <Lock className="h-6 w-6 mr-2" />
+              <Lock className="h-5 w-5 mr-1" />
               <span className="font-medium">Bank-level security</span>
             </div>
           </div>
@@ -792,155 +579,69 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white py-20">
+      <footer className="bg-card py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             <div className="md:col-span-2">
-              <div className="flex items-center mb-6">
-                <div
-                  className="w-10 h-10 rounded-lg mr-3"
-                  style={{ backgroundColor: "#0E2148" }}
-                ></div>
-                <h3 className="text-3xl font-black" style={{ color: "#0E2148" }}>
-                  Finance<span style={{ color: "#483AA0" }}>AI</span>
+              <div className="flex items-center mb-4">
+                <div className="w-8 h-8 rounded-md mr-2 bg-primary"></div>
+                <h3 className="text-2xl font-bold text-primary">
+                  Finance<span className="text-sidebar-accent">AI</span>
                 </h3>
               </div>
-              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                Intelligent finance management powered by cutting-edge AI technology. Transform your
-                financial future today.
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                Intelligent finance management powered by AI technology.
               </p>
-              <div className="flex space-x-4">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "#ECFAE5" }}
-                >
-                  <span className="text-sm font-bold" style={{ color: "#0E2148" }}>
-                    f
-                  </span>
-                </div>
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "#ECFAE5" }}
-                >
-                  <span className="text-sm font-bold" style={{ color: "#0E2148" }}>
-                    t
-                  </span>
-                </div>
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "#ECFAE5" }}
-                >
-                  <span className="text-sm font-bold" style={{ color: "#0E2148" }}>
-                    in
-                  </span>
-                </div>
+              <div className="flex gap-3">
+                {["f", "t", "in"].map((icon, i) => (
+                  <div
+                    key={i}
+                    className="w-8 h-8 rounded-full flex items-center justify-center bg-secondary2"
+                  >
+                    <span className="text-xs font-bold text-primary">{icon}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div>
-              <h4 className="font-bold text-lg mb-6" style={{ color: "#0E2148" }}>
-                Product
-              </h4>
-              <ul className="space-y-3 text-gray-600">
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Pricing
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Security
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    API
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Integrations
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-lg mb-6" style={{ color: "#0E2148" }}>
-                Company
-              </h4>
-              <ul className="space-y-3 text-gray-600">
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Press
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-lg mb-6" style={{ color: "#0E2148" }}>
-                Support
-              </h4>
-              <ul className="space-y-3 text-gray-600">
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Community
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#0E2148] transition-colors font-medium">
-                    Terms of Service
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {[
+              {
+                title: "Product",
+                links: ["Features", "Pricing", "Security", "API", "Integrations"],
+              },
+              { title: "Company", links: ["About Us", "Blog", "Careers", "Press", "Contact"] },
+              {
+                title: "Support",
+                links: [
+                  "Help Center",
+                  "Documentation",
+                  "Community",
+                  "Privacy Policy",
+                  "Terms of Service",
+                ],
+              },
+            ].map((section, index) => (
+              <div key={index}>
+                <h4 className="font-bold text-base mb-4 text-primary">{section.title}</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  {section.links.map((link, i) => (
+                    <li key={i}>
+                      <a href="#" className="hover:text-primary transition-colors font-medium">
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
 
-          <div className="border-t border-gray-200 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-600">&copy; 2024 FinanceAI. All rights reserved.</p>
-            <div className="flex items-center space-x-6 mt-4 md:mt-0">
-              <span className="text-sm text-gray-500">Made with ❤️ for financial freedom</span>
+          <div className="border-t border-border mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-muted-foreground">© 2025 FinanceAI. All rights reserved.</p>
+            <div className="flex items-center gap-4 mt-4 md:mt-0">
+              <span className="text-xs text-muted-foreground">
+                Made with ❤️ for financial freedom
+              </span>
             </div>
           </div>
         </div>
