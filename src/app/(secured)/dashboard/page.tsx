@@ -15,19 +15,15 @@ export default function DashboardPage() {
   // Calculate summary statistics
   const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0);
 
-  const monthlyIncome = transactions
-    .filter((t) => t.type === "INCOME")
-    .reduce((sum, t) => sum + t.amount, 0);
+  const monthlyIncome = transactions.filter((t) => t.type === "INCOME").reduce((sum, t) => sum + t.amount, 0);
 
-  const monthlyExpenses = transactions
-    .filter((t) => t.type === "EXPENSE")
-    .reduce((sum, t) => sum + t.amount, 0);
+  const monthlyExpenses = transactions.filter((t) => t.type === "EXPENSE").reduce((sum, t) => sum + t.amount, 0);
 
   const netIncome = monthlyIncome - monthlyExpenses;
 
   return (
     <div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <CreateAccountDrawer>
           <Card className="hover:shadow-md transition-all duration-200 cursor-pointer border-dashed hover:border-primary border-2">
             <CardContent className="flex flex-col items-center justify-center text-muted-foreground h-full pt-6 pb-6">
@@ -35,15 +31,12 @@ export default function DashboardPage() {
                 <Plus className="h-6 w-6 text-primary" />
               </div>
               <p className="text-sm font-medium">Add New Account</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Connect your bank or create manually
-              </p>
+              <p className="text-xs text-muted-foreground mt-1">Connect your bank or create manually</p>
             </CardContent>
           </Card>
         </CreateAccountDrawer>
 
-        {accounts.length > 0 &&
-          accounts?.map((account) => <AccountCard key={account.id} account={account} />)}
+        {accounts.length > 0 && accounts?.map((account) => <AccountCard key={account.id} account={account} />)}
       </div>
     </div>
   );

@@ -9,41 +9,19 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import Link from "next/link";
 // import { updateDefaultAccount } from "@/actions/account";
 import { toast } from "sonner";
+import { TAccountSchema } from "@/features/account/schema/account";
 
-export function AccountCard({ account }: any) {
-  const { name, type, balance, id, isDefault } = account;
+type AccountCardProps = {
+  key: string;
+  account: TAccountSchema & {
+    id: string;
+  };
+};
 
-  //   const {
-  //     loading: updateDefaultLoading,
-  //     fn: updateDefaultFn,
-  //     data: updatedAccount,
-  //     error,
-  //   } = useFetch(updateDefaultAccount);
+export function AccountCard({ account }: AccountCardProps) {
+  const { id, name, balance, isDefault, type } = account;
 
-  //   const handleDefaultChange = async (event) => {
-  //     event.preventDefault(); // Prevent navigation
-
-  //     if (isDefault) {
-  //       toast.warning("You need atleast 1 default account");
-  //       return; // Don't allow toggling off the default account
-  //     }
-
-  //     await updateDefaultFn(id);
-  //   };
-
-  //   useEffect(() => {
-  //     if (updatedAccount?.success) {
-  //       toast.success("Default account updated successfully");
-  //     }
-  //   }, [updatedAccount]);
-
-  //   useEffect(() => {
-  //     if (error) {
-  //       toast.error(error.message || "Failed to update default account");
-  //     }
-  //   }, [error]);
-
-  const getAccountIcon = (type) => {
+  const getAccountIcon = (type: string) => {
     switch (type) {
       case "CHECKING":
         return "💳";
@@ -77,12 +55,8 @@ export function AccountCard({ account }: any) {
           /> */}
         </CardHeader>
         <CardContent className="relative">
-          <div className="text-3xl font-bold mb-1">
-            ${Number.parseFloat(balance).toLocaleString()}
-          </div>
-          <p className="text-sm text-muted-foreground">
-            {type.charAt(0) + type.slice(1).toLowerCase()} Account
-          </p>
+          <div className="text-3xl font-bold mb-1">${Number.parseFloat(String(balance)).toLocaleString()}</div>
+          <p className="text-sm text-muted-foreground">{type.charAt(0) + type.slice(1).toLowerCase()} Account</p>
         </CardContent>
         <CardFooter className="flex justify-between text-sm text-muted-foreground relative">
           <div className="flex items-center">
