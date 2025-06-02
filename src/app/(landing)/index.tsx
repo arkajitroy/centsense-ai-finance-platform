@@ -20,8 +20,11 @@ import {
 } from "lucide-react";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import { checkUser } from "@/features/auth/services/check-user";
 
-export default function HomePage() {
+export default async function HomePage() {
+  await checkUser();
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#ECFAE5" }}>
       {/* Navbar */}
