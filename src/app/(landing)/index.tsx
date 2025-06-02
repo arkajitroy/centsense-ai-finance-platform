@@ -15,11 +15,7 @@ import {
   Smartphone,
   Globe,
   Lock,
-  PenBox,
-  LayoutDashboard,
 } from "lucide-react";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Link from "next/link";
 import { checkUser } from "@/features/auth/services/check-user";
 
 export default async function HomePage() {
@@ -27,49 +23,6 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navbar */}
-      <nav className="border-b border-sidebar-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <div className="w-8 h-8 rounded-md mr-2 bg-primary"></div>
-              <h1 className="text-2xl font-bold tracking-tight text-primary">
-                Centsense<span className="text-sidebar-accent">AI</span>
-              </h1>
-            </div>
-            <div className="hidden md:flex items-center space-x-6">
-              <SignedIn>
-                <Link href="/dashboard">
-                  <Button variant="outline" className="flex items-center gap-2 text-sm">
-                    <LayoutDashboard className="h-4 w-4" />
-                    <span className="hidden md:inline">Dashboard</span>
-                  </Button>
-                </Link>
-                <Link href="/transaction/create">
-                  <Button className="flex items-center gap-2 text-sm bg-primary text-primary-foreground">
-                    <PenBox className="h-4 w-4" />
-                    <span className="hidden md:inline">Add Transaction</span>
-                  </Button>
-                </Link>
-              </SignedIn>
-              <SignedOut>
-                <Link href="/sign-in">
-                  <Button
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground text-sm font-medium"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section className="py-20 sm:py-24 lg:py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-card/50 to-transparent"></div>
@@ -126,7 +79,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Stats Section */}
       <section className="py-16 bg-accent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -166,7 +118,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Features Section */}
       <section id="features" className="py-20 sm:py-24 bg-secondary2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -247,7 +198,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
       {/* How it Works */}
       <section id="how-it-works" className="py-20 sm:py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -321,7 +271,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Pricing Section */}
       <section id="pricing" className="py-20 sm:py-24 bg-secondary2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -436,7 +385,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Testimonials */}
       <section id="testimonials" className="py-20 sm:py-24 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -502,7 +450,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Newsletter Section */}
       <section className="py-16 bg-secondary2">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -529,7 +476,6 @@ export default async function HomePage() {
           </p>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-20 sm:py-24 relative overflow-hidden bg-primary">
         <div className="absolute inset-0 bg-gradient-to-br from-sidebar-accent/20 to-transparent"></div>
@@ -577,75 +523,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-card py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-            <div className="md:col-span-2">
-              <div className="flex items-center mb-4">
-                <div className="w-8 h-8 rounded-md mr-2 bg-primary"></div>
-                <h3 className="text-2xl font-bold text-primary">
-                  Finance<span className="text-sidebar-accent">AI</span>
-                </h3>
-              </div>
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                Intelligent finance management powered by AI technology.
-              </p>
-              <div className="flex gap-3">
-                {["f", "t", "in"].map((icon, i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full flex items-center justify-center bg-secondary2"
-                  >
-                    <span className="text-xs font-bold text-primary">{icon}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {[
-              {
-                title: "Product",
-                links: ["Features", "Pricing", "Security", "API", "Integrations"],
-              },
-              { title: "Company", links: ["About Us", "Blog", "Careers", "Press", "Contact"] },
-              {
-                title: "Support",
-                links: [
-                  "Help Center",
-                  "Documentation",
-                  "Community",
-                  "Privacy Policy",
-                  "Terms of Service",
-                ],
-              },
-            ].map((section, index) => (
-              <div key={index}>
-                <h4 className="font-bold text-base mb-4 text-primary">{section.title}</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  {section.links.map((link, i) => (
-                    <li key={i}>
-                      <a href="#" className="hover:text-primary transition-colors font-medium">
-                        {link}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className="border-t border-border mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-muted-foreground">© 2025 FinanceAI. All rights reserved.</p>
-            <div className="flex items-center gap-4 mt-4 md:mt-0">
-              <span className="text-xs text-muted-foreground">
-                Made with ❤️ for financial freedom
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
