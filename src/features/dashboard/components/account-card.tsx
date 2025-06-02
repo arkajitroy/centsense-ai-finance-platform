@@ -1,15 +1,17 @@
 "use client";
 
 import { MouseEvent, useEffect } from "react";
+import Link from "next/link";
+import { toast } from "sonner";
+
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import useFetch from "@/hooks/use-fetch";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
-// import { updateDefaultAccount } from "@/actions/account";
-import { toast } from "sonner";
+
 import { TAccountSchema } from "@/features/account/schema/account";
+import { updateDefaultAccount } from "@/features/account/server/action";
 
 type AccountCardProps = {
   key: string;
@@ -21,12 +23,12 @@ type AccountCardProps = {
 export function AccountCard({ account }: AccountCardProps) {
   const { id, name, balance, isDefault, type } = account;
 
-  // const {
-  //   loading: updateDefaultLoading,
-  //   fn: updateDefaultFn,
-  //   data: updatedAccount,
-  //   error,
-  // } = useFetch(updateDefaultAccount);
+  const {
+    loading: updateDefaultLoading,
+    fn: updateDefaultFn,
+    data: updatedAccount,
+    error,
+  } = useFetch(updateDefaultAccount);
 
   const getAccountIcon = (type: string) => {
     switch (type) {
@@ -42,7 +44,7 @@ export function AccountCard({ account }: AccountCardProps) {
   };
 
   const handleDefaultChange = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault(); // Prevent navigation
+    event.preventDefault();
 
     if (isDefault) {
       toast.warning("You need atleast 1 default account");
@@ -52,17 +54,17 @@ export function AccountCard({ account }: AccountCardProps) {
     await updateDefaultFn(id);
   };
 
-  // useEffect(() => {
-  //   if (updatedAccount?.success) {
-  //     toast.success("Default account updated successfully");
-  //   }
-  // }, [updatedAccount]);
+  useEffect(() => {
+    if (updatedAccount?.success) {
+      toast.success("Default account updated successfully");
+    }
+  }, [updatedAccount]);
 
-  // useEffect(() => {
-  //   if (error) {
-  //     toast.error(error.message || "Failed to update default account");
-  //   }
-  // }, [error]);
+  useEffect(() => {
+    if (error && error instanceof Error) {
+      toast.error(error.message || "Failed to update default account");
+    }
+  }, [error]);
 
   return (
     <Card className="hover:shadow-lg transition-all duration-200 group relative overflow-hidden">
@@ -78,10 +80,10 @@ export function AccountCard({ account }: AccountCardProps) {
               </Badge>
             )}
           </div>
-          <Switch checked={isDefault} onClick={handleDefaultChange} />
+          <Switch checked={isDefault} onClick={handleDefaultChange} disabled={updateDefaultLoading} />
         </CardHeader>
         <CardContent className="relative">
-          <div className="text-3xl font-bold mb-1">${Number.parseFloat(String(balance)).toLocaleString()}</div>
+          <div className="text-3xl font-bold mb-1">₹{Number.parseFloat(String(balance)).toLocaleString()}</div>
           <p className="text-sm text-muted-foreground">{type.charAt(0) + type.slice(1).toLowerCase()} Account</p>
         </CardContent>
         <CardFooter className="flex justify-between text-sm text-muted-foreground relative">
