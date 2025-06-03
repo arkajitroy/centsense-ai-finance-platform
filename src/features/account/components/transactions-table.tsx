@@ -197,10 +197,10 @@ export function TransactionTable({ transactions }) {
     <Card className="overflow-hidden">
       {deleteLoading && <BarLoader className="mt-4" width={"100%"} color="#9333ea" />}
 
-      <CardHeader className="bg-gradient-to-r from-primary/5 to-transparent">
+      <CardHeader className="">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <CardTitle className="text-lg font-semibold">Transaction History</CardTitle>
+            <CardTitle className="text-2xl text-primary font-bold">Transaction History</CardTitle>
             <p className="text-sm text-muted-foreground">
               {filteredAndSortedTransactions.length} of {transactions.length} transactions
             </p>
@@ -218,7 +218,7 @@ export function TransactionTable({ transactions }) {
 
       <CardContent className="p-0">
         {/* Filters */}
-        <div className="p-4 border-b bg-muted/20">
+        <div className="p-4 border-b">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -286,7 +286,7 @@ export function TransactionTable({ transactions }) {
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="bg-muted/30">
+              <TableRow className="bg-muted/50">
                 <TableHead className="w-[50px]">
                   <Checkbox
                     checked={selectedIds.length === paginatedTransactions.length && paginatedTransactions.length > 0}
@@ -294,7 +294,7 @@ export function TransactionTable({ transactions }) {
                   />
                 </TableHead>
                 <TableHead className="cursor-pointer" onClick={() => handleSort("date")}>
-                  <div className="flex items-center">
+                  <div className="flex items-center font-bold">
                     Date
                     {sortConfig.field === "date" &&
                       (sortConfig.direction === "asc" ? (
@@ -304,9 +304,9 @@ export function TransactionTable({ transactions }) {
                       ))}
                   </div>
                 </TableHead>
-                <TableHead>Description</TableHead>
+                <TableHead className="font-bold">Description</TableHead>
                 <TableHead className="cursor-pointer" onClick={() => handleSort("category")}>
-                  <div className="flex items-center">
+                  <div className="flex items-center font-bold">
                     Category
                     {sortConfig.field === "category" &&
                       (sortConfig.direction === "asc" ? (
@@ -317,7 +317,7 @@ export function TransactionTable({ transactions }) {
                   </div>
                 </TableHead>
                 <TableHead className="cursor-pointer text-right" onClick={() => handleSort("amount")}>
-                  <div className="flex items-center justify-end">
+                  <div className="flex items-center font-bold justify-end">
                     Amount
                     {sortConfig.field === "amount" &&
                       (sortConfig.direction === "asc" ? (
@@ -327,7 +327,7 @@ export function TransactionTable({ transactions }) {
                       ))}
                   </div>
                 </TableHead>
-                <TableHead>Recurring</TableHead>
+                <TableHead className="font-bold">Recurring</TableHead>
                 <TableHead className="w-[50px]" />
               </TableRow>
             </TableHeader>
@@ -458,7 +458,7 @@ export function TransactionTable({ transactions }) {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between p-4 border-t bg-muted/20">
+          <div className="flex items-center justify-between p-4 border-t">
             <div className="text-sm text-muted-foreground">
               Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to{" "}
               {Math.min(currentPage * ITEMS_PER_PAGE, filteredAndSortedTransactions.length)} of{" "}
