@@ -1,5 +1,4 @@
-import { BarLoader } from "react-spinners";
-import { PropsWithChildren, Suspense } from "react";
+import { PropsWithChildren } from "react";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/features/dashboard/components/app-sidebar";
 import { Separator } from "@/components/ui/separator";

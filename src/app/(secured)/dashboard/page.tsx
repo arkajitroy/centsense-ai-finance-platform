@@ -22,8 +22,6 @@ export default async function DashboardPage() {
 
   const netIncome = monthlyIncome - monthlyExpenses;
 
-  console.log("debug:accounts", accounts);
-
   return (
     <div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

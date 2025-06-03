@@ -1,13 +1,4 @@
-import {
-  Home,
-  Settings,
-  CreditCard,
-  TrendingUp,
-  PieChart,
-  Wallet,
-  Target,
-  Receipt,
-} from "lucide-react";
+import { Home, Settings, CreditCard, TrendingUp, PieChart, Wallet, Target, Receipt } from "lucide-react";
 
 import {
   Sidebar,
