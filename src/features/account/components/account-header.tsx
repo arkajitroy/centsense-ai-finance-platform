@@ -54,7 +54,7 @@ export function AccountHeader({ account }: any) {
 
       {/* Account Header Card */}
       <Card className="overflow-hidden">
-        <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent">
+        <div className="">
           <CardContent className="p-6">
             <div className="flex items-start justify-between">
               <div className="flex items-start gap-4">

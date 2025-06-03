@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   ChevronDown,
   ChevronUp,
@@ -35,6 +35,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { BarLoader } from "react-spinners";
+import useFetch from "@/hooks/use-fetch";
+import { bulkDeleteTransactions } from "../server/action";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -69,7 +71,18 @@ export function TransactionTable({ transactions }) {
   const [typeFilter, setTypeFilter] = useState("");
   const [recurringFilter, setRecurringFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [deleteLoading, setDeleteLoading] = useState(false);
+
+  const { loading: deleteLoading, data: deleted, fn: deleteFn } = useFetch(bulkDeleteTransactions);
+
+  const handleBulkDelete = async () => {
+    if (!window.confirm(`Are you sure you want to delete ${selectedIds.length} transactions?`)) return;
+
+    deleteFn(selectedIds);
+    // Simulate API call
+    setTimeout(() => {
+      setSelectedIds([]);
+    }, 1000);
+  };
 
   // Memoized filtered and sorted transactions
   const filteredAndSortedTransactions = useMemo(() => {
@@ -142,18 +155,6 @@ export function TransactionTable({ transactions }) {
     );
   };
 
-  const handleBulkDelete = async () => {
-    if (!window.confirm(`Are you sure you want to delete ${selectedIds.length} transactions?`)) return;
-
-    setDeleteLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setDeleteLoading(false);
-      setSelectedIds([]);
-      toast.success("Transactions deleted successfully");
-    }, 1000);
-  };
-
   const handleClearFilters = () => {
     setSearchTerm("");
     setTypeFilter("");
@@ -185,6 +186,12 @@ export function TransactionTable({ transactions }) {
   };
 
   const hasActiveFilters = searchTerm || typeFilter || recurringFilter;
+
+  useEffect(() => {
+    if (deleted && !deleteLoading) {
+      toast.success("Transactions deleted successfully");
+    }
+  }, [deleteLoading, deleted]);
 
   return (
     <Card className="overflow-hidden">
@@ -431,7 +438,10 @@ export function TransactionTable({ transactions }) {
                               Edit
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className="text-destructive gap-2">
+                            <DropdownMenuItem
+                              className="text-destructive gap-2"
+                              onClick={() => deleteFn([transaction.id])}
+                            >
                               <Trash className="h-4 w-4" />
                               Delete
                             </DropdownMenuItem>
