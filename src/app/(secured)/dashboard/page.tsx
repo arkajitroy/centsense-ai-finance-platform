@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { dummyBudgetData, dummyTransactions } from "@/data/dashboard";
+import { dummyTransactions } from "@/data/dashboard";
 import { CreateAccountDrawer } from "@/features/account/components/create-account-drawer";
+import { getCurrentBudget } from "@/features/budget/server/action";
 import { AccountCard } from "@/features/dashboard/components/account-card";
 import { BudgetProgress } from "@/features/dashboard/components/budget-progress";
 import { getUserAccounts } from "@/features/dashboard/server/action";
@@ -10,9 +11,10 @@ import React from "react";
 export default async function DashboardPage() {
   const accounts = await getUserAccounts();
   const transactions = dummyTransactions;
-  const budgetData = dummyBudgetData;
+  let budgetData = null;
 
   const defaultAccount = accounts?.find((account) => account.isDefault);
+  if (defaultAccount) budgetData = await getCurrentBudget(defaultAccount.id);
 
   // Calculate summary statistics
   const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0);

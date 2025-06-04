@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Pencil, Check, X, Target } from "lucide-react";
+import { Pencil, Check, X, Target, Loader2 } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
 import { toast } from "sonner";
 
@@ -10,13 +10,27 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import { updateBudget } from "@/features/budget/server/action";
 // import { updateBudget } from "@/actions/budget";
 
-export function BudgetProgress({ initialBudget, currentExpenses }) {
+type BudgetProgressProps = {
+  initialBudget:
+    | {
+        id: string;
+        userId: string;
+        amount: number;
+      }
+    | null
+    | undefined;
+  currentExpenses: number;
+};
+
+export function BudgetProgress({ initialBudget, currentExpenses }: BudgetProgressProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [newBudget, setNewBudget] = useState(initialBudget?.amount?.toString() || "");
 
-  //   const { loading: isLoading, fn: updateBudgetFn, data: updatedBudget, error } = useFetch(updateBudget);
+  const { loading: isLoading, fn: updateBudgetFn, data: updatedBudget, error } = useFetch(updateBudget);
 
   const percentUsed = initialBudget ? (currentExpenses / initialBudget.amount) * 100 : 0;
 
@@ -30,7 +44,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
       return;
     }
 
-    // await updateBudgetFn(amount);
+    await updateBudgetFn(amount);
   };
 
   const handleCancel = () => {
@@ -38,20 +52,23 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
     setIsEditing(false);
   };
 
-  //   useEffect(() => {
-  //     if (updatedBudget?.success) {
-  //       setIsEditing(false);
-  //       toast.success("Budget updated successfully");
-  //     }
-  //   }, [updatedBudget]);
+  useEffect(() => {
+    if (updatedBudget?.success) {
+      setIsEditing(false);
+      toast.success("Budget updated successfully");
+    }
+  }, [updatedBudget]);
 
-  //   useEffect(() => {
-  //     if (error) {
-  //       toast.error(error.message || "Failed to update budget");
-  //     }
-  //   }, [error]);
+  useEffect(() => {
+    if (error && error instanceof Error) {
+      toast.error(error.message || "Failed to update budget");
+    }
+  }, [error]);
 
-  const getBudgetStatus = () => {
+  const getBudgetStatus = (): {
+    label: string;
+    variant: "destructive" | "secondary" | "default" | "outline" | null | undefined;
+  } => {
     if (percentUsed >= 100) return { label: "Over Budget", variant: "destructive" };
     if (percentUsed >= 90) return { label: "Almost Exceeded", variant: "destructive" };
     if (percentUsed >= 75) return { label: "High Usage", variant: "secondary" };
@@ -62,7 +79,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
 
   return (
     <Card className="overflow-hidden">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 bg-gradient-to-r from-primary/5 to-transparent">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <div className="flex items-center gap-3">
           <div className="rounded-full bg-primary/10 p-2">
             <Target className="h-5 w-5 text-primary" />
@@ -122,15 +139,25 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
         )}
       </CardHeader>
       <CardContent className="space-y-4">
-        {initialBudget ? (
+        {isLoading && (
+          <div className="flex justify-center py-6">
+            <Loader2 className="h-6 w-6 text-muted-foreground animate-spin" />
+          </div>
+        )}
+
+        {!isLoading && initialBudget ? (
           <>
             <div className="space-y-3">
               <Progress
                 value={Math.min(percentUsed, 100)}
-                className="h-3"
-                extraStyles={`${
-                  percentUsed >= 90 ? "bg-red-500" : percentUsed >= 75 ? "bg-yellow-500" : "bg-green-500"
-                }`}
+                className={cn(
+                  "h-3",
+                  percentUsed >= 90
+                    ? "bg-red-500"
+                    : percentUsed >= 75
+                    ? "bg-gradient-to-r from-yellow-400 to-yellow-600"
+                    : "bg-gradient-to-r from-emerald-400 to-emerald-600"
+                )}
               />
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">{percentUsed.toFixed(1)}% used</span>
@@ -151,11 +178,13 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
             </div>
           </>
         ) : (
-          <div className="text-center py-6">
-            <div className="text-3xl mb-2">🎯</div>
-            <p className="text-muted-foreground mb-2">No budget set</p>
-            <p className="text-sm text-muted-foreground">Click the edit button to set your monthly budget</p>
-          </div>
+          !isLoading && (
+            <div className="text-center py-6">
+              <div className="text-3xl mb-2">🎯</div>
+              <p className="text-muted-foreground mb-2">No budget set</p>
+              <p className="text-sm text-muted-foreground">Click the edit button to set your monthly budget</p>
+            </div>
+          )
         )}
       </CardContent>
     </Card>
