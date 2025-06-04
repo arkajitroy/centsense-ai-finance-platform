@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { dummyBudgetData, dummyTransactions } from "@/data/dashboard";
 import { CreateAccountDrawer } from "@/features/account/components/create-account-drawer";
 import { AccountCard } from "@/features/dashboard/components/account-card";
+import { BudgetProgress } from "@/features/dashboard/components/budget-progress";
 import { getUserAccounts } from "@/features/dashboard/server/action";
 import { Plus } from "lucide-react";
 import React from "react";
@@ -23,7 +24,11 @@ export default async function DashboardPage() {
   const netIncome = monthlyIncome - monthlyExpenses;
 
   return (
-    <div>
+    <div className="space-y-4">
+      {/* Budget Progress */}
+      <BudgetProgress initialBudget={budgetData?.budget} currentExpenses={budgetData?.currentExpenses || 0} />
+
+      {/* Accounts Managment Section */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <CreateAccountDrawer>
           <Card className="hover:shadow-md transition-all duration-200 cursor-pointer border-dashed hover:border-primary border-2">
