@@ -4,7 +4,7 @@ import db from "@/lib/prisma";
 import { sendEmail } from "@/actions/send-email";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import type { Transaction, User, Budget } from "@prisma/client";
-import EmailTemplate from "@/templates/email/budget-reminder";
+import EmailTemplate from "@/templates/email/budget";
 
 // Utility types
 type Stats = {

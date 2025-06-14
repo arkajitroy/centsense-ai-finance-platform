@@ -1,7 +1,43 @@
 import { Body, Container, Head, Heading, Html, Preview, Section, Text } from "@react-email/components";
+import React from "react";
 
-// Dummy data for preview
-const PREVIEW_DATA = {
+// -------------------------------------
+// ✅ Types
+// -------------------------------------
+
+type MonthlyReportData = {
+  month: string;
+  stats: {
+    totalIncome: number;
+    totalExpenses: number;
+    byCategory: Record<string, number>;
+  };
+  insights: string[];
+};
+
+type BudgetAlertData = {
+  percentageUsed: number;
+  budgetAmount: number;
+  totalExpenses: number;
+};
+
+type EmailTemplateProps =
+  | {
+      userName: string;
+      type: "monthly-report";
+      data: MonthlyReportData;
+    }
+  | {
+      userName: string;
+      type: "budget-alert";
+      data: BudgetAlertData;
+    };
+
+// -------------------------------------
+// ✅ Preview Dummy Data (Typed)
+// -------------------------------------
+
+export const PREVIEW_DATA: Record<"monthlyReport" | "budgetAlert", EmailTemplateProps> = {
   monthlyReport: {
     userName: "John Doe",
     type: "monthly-report",
@@ -36,8 +72,15 @@ const PREVIEW_DATA = {
   },
 };
 
-export default function EmailTemplate({ userName = "", type = "monthly-report", data = {} }) {
+// -------------------------------------
+// ✅ Email Template Component
+// -------------------------------------
+
+export default function EmailTemplate(props: EmailTemplateProps) {
+  const { userName, type, data } = props;
+
   if (type === "monthly-report") {
+    const { month, stats, insights } = data;
     return (
       <Html>
         <Head />
@@ -47,29 +90,29 @@ export default function EmailTemplate({ userName = "", type = "monthly-report", 
             <Heading style={styles.title}>Monthly Financial Report</Heading>
 
             <Text style={styles.text}>Hello {userName},</Text>
-            <Text style={styles.text}>Here&rsquo;s your financial summary for {data?.month}:</Text>
+            <Text style={styles.text}>Here&rsquo;s your financial summary for {month}:</Text>
 
             {/* Main Stats */}
             <Section style={styles.statsContainer}>
               <div style={styles.stat}>
                 <Text style={styles.text}>Total Income</Text>
-                <Text style={styles.heading}>${data?.stats.totalIncome}</Text>
+                <Text style={styles.heading}>${stats.totalIncome}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Total Expenses</Text>
-                <Text style={styles.heading}>${data?.stats.totalExpenses}</Text>
+                <Text style={styles.heading}>${stats.totalExpenses}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Net</Text>
-                <Text style={styles.heading}>${data?.stats.totalIncome - data?.stats.totalExpenses}</Text>
+                <Text style={styles.heading}>${stats.totalIncome - stats.totalExpenses}</Text>
               </div>
             </Section>
 
             {/* Category Breakdown */}
-            {data?.stats?.byCategory && (
+            {stats.byCategory && (
               <Section style={styles.section}>
                 <Heading style={styles.heading}>Expenses by Category</Heading>
-                {Object.entries(data?.stats.byCategory).map(([category, amount]) => (
+                {Object.entries(stats.byCategory).map(([category, amount]) => (
                   <div key={category} style={styles.row}>
                     <Text style={styles.text}>{category}</Text>
                     <Text style={styles.text}>${amount}</Text>
@@ -79,10 +122,10 @@ export default function EmailTemplate({ userName = "", type = "monthly-report", 
             )}
 
             {/* AI Insights */}
-            {data?.insights && (
+            {insights && (
               <Section style={styles.section}>
                 <Heading style={styles.heading}>Welth Insights</Heading>
-                {data.insights.map((insight, index) => (
+                {insights.map((insight, index) => (
                   <Text key={index} style={styles.text}>
                     • {insight}
                   </Text>
@@ -100,6 +143,7 @@ export default function EmailTemplate({ userName = "", type = "monthly-report", 
   }
 
   if (type === "budget-alert") {
+    const { percentageUsed, budgetAmount, totalExpenses } = data;
     return (
       <Html>
         <Head />
@@ -108,21 +152,19 @@ export default function EmailTemplate({ userName = "", type = "monthly-report", 
           <Container style={styles.container}>
             <Heading style={styles.title}>Budget Alert</Heading>
             <Text style={styles.text}>Hello {userName},</Text>
-            <Text style={styles.text}>
-              You&rsquo;ve used {data?.percentageUsed.toFixed(1)}% of your monthly budget.
-            </Text>
+            <Text style={styles.text}>You&rsquo;ve used {percentageUsed.toFixed(1)}% of your monthly budget.</Text>
             <Section style={styles.statsContainer}>
               <div style={styles.stat}>
                 <Text style={styles.text}>Budget Amount</Text>
-                <Text style={styles.heading}>${data?.budgetAmount}</Text>
+                <Text style={styles.heading}>${budgetAmount}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Spent So Far</Text>
-                <Text style={styles.heading}>${data?.totalExpenses}</Text>
+                <Text style={styles.heading}>${totalExpenses}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Remaining</Text>
-                <Text style={styles.heading}>${data?.budgetAmount - data?.totalExpenses}</Text>
+                <Text style={styles.heading}>${budgetAmount - totalExpenses}</Text>
               </div>
             </Section>
           </Container>
@@ -130,7 +172,13 @@ export default function EmailTemplate({ userName = "", type = "monthly-report", 
       </Html>
     );
   }
+
+  return null;
 }
+
+// -------------------------------------
+// ✅ Styles (unchanged)
+// -------------------------------------
 
 const styles = {
   body: {
@@ -196,4 +244,4 @@ const styles = {
     paddingTop: "16px",
     borderTop: "1px solid #e5e7eb",
   },
-};
+} as const;
