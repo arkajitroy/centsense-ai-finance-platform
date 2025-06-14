@@ -19,6 +19,7 @@ type BudgetAlertData = {
   percentageUsed: number;
   budgetAmount: number;
   totalExpenses: number;
+  accountName?: string;
 };
 
 type EmailTemplateProps =
