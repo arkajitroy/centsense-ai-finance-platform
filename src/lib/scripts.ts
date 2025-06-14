@@ -5,8 +5,8 @@ import db from "@/lib/prisma";
 import { subDays } from "date-fns";
 import { TransactionType, TransactionStatus } from "@prisma/client"; // Assumes these enums exist
 
-const ACCOUNT_ID = "08c4bcbf-b65e-493f-9f63-5b28d0009272";
-const USER_ID = "8e8b1bcf-44c6-4224-ae2b-a91ff517f442";
+const ACCOUNT_ID = "5732cc4f-083c-49ef-bd79-317dc681d552";
+const USER_ID = "2fe3e3ef-ec3f-40ee-b543-bd5e1a8f6682";
 
 type CategoryType = "INCOME" | "EXPENSE";
 

@@ -150,14 +150,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }: BudgetProgres
             <div className="space-y-3">
               <Progress
                 value={Math.min(percentUsed, 100)}
-                className={cn(
-                  "h-3",
-                  percentUsed >= 90
-                    ? "bg-red-500"
-                    : percentUsed >= 75
-                    ? "bg-gradient-to-r from-yellow-400 to-yellow-600"
-                    : "bg-gradient-to-r from-emerald-400 to-emerald-600"
-                )}
+                className={`${percentUsed >= 90 ? "bg-red-500" : percentUsed >= 75 ? "bg-yellow-500" : "bg-green-500"}`}
               />
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">{percentUsed.toFixed(1)}% used</span>
